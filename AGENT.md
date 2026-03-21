@@ -113,6 +113,38 @@ python src/scripts/bin/import.py --account [ACCOUNT_ID] --container [CONTAINER_I
 
 ---
 
-### 4. Best Practices for Agents
+### 4. AI-Powered GTM Configuration Generation
+
+The system can automatically generate optimal GTM configurations by analyzing a website.
+
+#### Web UI
+Navigate to `http://localhost:3000/generate` and enter a URL to analyze.
+
+#### API
+```bash
+# Without workspace (no auth required)
+curl -X POST http://localhost:8000/api/generate \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com"}'
+
+# With workspace for dedup (auth required)
+curl -X POST http://localhost:8000/api/generate/with-workspace \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com", "workspace_path": "accounts/123/containers/456/workspaces/789"}'
+```
+
+#### How It Works
+1. **Crawl**: Playwright analyzes the site (top page + up to 4 sub-pages) to extract metadata, existing tags, forms, CTAs, ecommerce info, and technology stack.
+2. **Classify**: The site is classified as `ec`, `saas`, `media`, `lp`, or `corporate`.
+3. **Generate**: Claude generates GTM-compatible tags/triggers/variables based on the analysis, with explanations and priority levels.
+4. **Validate**: Output is validated (required fields, no prohibited Custom HTML scripts).
+
+#### Prerequisites
+- `ANTHROPIC_API_KEY` in `.env`
+- Playwright Chromium: `playwright install chromium`
+
+---
+
+### 5. Best Practices for Agents
 - **Verify after Import**: After running `src/scripts/bin/import.py`, inspect the local JSON files to confirm that names have been replaced by numeric IDs.
 - **Avoid Manual Metadata Edits**: Don't manually edit IDs or fingerprints unless you specifically want to force/manipulate sync behavior. Let the script handle it.

@@ -14,6 +14,35 @@
 
 - **プログラミング言語**: Python 3.x（標準ライブラリのみ）
 
+## AI自動生成機能
+
+URLを入力するだけで、サイトを分析し最適なGTM設定を自動生成します。
+
+### フロー
+```
+URL入力 → サイト分析（Playwright） → AI生成（Claude） → プレビュー → GTMに適用
+```
+
+### 対応サイト種別
+- **EC**: purchase, add_to_cart, view_item 等のECイベント
+- **SaaS**: sign_up, login, CTA click 等
+- **LP**: form_submit, scroll_depth, CTA click
+- **メディア**: scroll_depth, article_view, outbound_click
+- **コーポレート**: form_submit, 基本計測
+
+### 起動方法
+```bash
+# 環境変数の設定
+# src/.env に ANTHROPIC_API_KEY を追加
+
+# Docker
+docker compose up --build
+
+# ブラウザで http://localhost:3000/generate を開く
+```
+
+---
+
 ## Agent Skills のセットアップ
 
 Agent Skills の全般的な情報については [agentskills.io](https://agentskills.io/home) を参照してください。

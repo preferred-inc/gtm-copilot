@@ -14,6 +14,34 @@ To ensure portability and ease of setup, this project is implemented using **onl
 
 - **Programming Language**: Python 3.x (Standard Library only)
 
+## AI-Powered GTM Generation
+
+Enter a URL and automatically generate optimal GTM configurations.
+
+### Flow
+```
+URL input → Site analysis (Playwright) → AI generation (Claude) → Preview → Apply to GTM
+```
+
+### Supported Site Types
+- **EC**: purchase, add_to_cart, view_item and other ecommerce events
+- **SaaS**: sign_up, login, CTA click tracking
+- **Landing Page**: form_submit, scroll_depth, CTA click
+- **Media**: scroll_depth, article_view, outbound_click
+- **Corporate**: form_submit, basic tracking
+
+### Getting Started
+```bash
+# Add ANTHROPIC_API_KEY to src/.env
+
+# Docker
+docker compose up --build
+
+# Open http://localhost:3000/generate
+```
+
+---
+
 ## Agent Skills Setup
 
 For general information on Agent Skills, please refer to [agentskills.io](https://agentskills.io/home).

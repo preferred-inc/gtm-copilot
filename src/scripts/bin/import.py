@@ -55,15 +55,25 @@ class GTMDependencyResolver:
     Resolves dependency between GTM components by name.
     If a component is referenced by name and doesn't exist, it creates it.
     """
-    def __init__(self, client: GTMClient, workspace_path: str, directory: str):
+    def __init__(self, client: GTMClient, workspace_path: str, directory: str = None, data: dict = None):
         self.client = client
         self.workspace_path = workspace_path
         self.directory = directory
-        
-        # Original order from JSON files to preserve it during save
-        self.variables_list = load_json(directory, "variables.json")
-        self.triggers_list = load_json(directory, "triggers.json")
-        self.tags_list = load_json(directory, "tags.json")
+
+        if data:
+            # In-memory mode (from API)
+            self.variables_list = data.get("variables", [])
+            self.triggers_list = data.get("triggers", [])
+            self.tags_list = data.get("tags", [])
+        elif directory:
+            # File mode (from CLI)
+            self.variables_list = load_json(directory, "variables.json")
+            self.triggers_list = load_json(directory, "triggers.json")
+            self.tags_list = load_json(directory, "tags.json")
+        else:
+            self.variables_list = []
+            self.triggers_list = []
+            self.tags_list = []
 
         # Registry of local components from JSON (keyed by type then name)
         self.local_repo = {
@@ -71,7 +81,7 @@ class GTMDependencyResolver:
             "triggers": {t['name']: t for t in self.triggers_list},
             "tags": {t['name']: t for t in self.tags_list},
         }
-        
+
         # Registry of remote components in the workspace (keyed by type then name)
         print("Fetching existing items in workspace...")
         self.remote_registry = {
