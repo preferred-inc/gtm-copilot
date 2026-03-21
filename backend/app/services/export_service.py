@@ -1,5 +1,7 @@
-from typing import Dict, Any, List
+from typing import Any, Dict, List
+
 from gtm_client import GTMClient
+
 
 class ExportService:
     def __init__(self, client: GTMClient):

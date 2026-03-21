@@ -5,7 +5,7 @@ This guide explains how to use the GTM development tools in this repository to e
 ## Prerequisites
 
 - **Environment**: Ensure `.env` is configured with `GTM_CLIENT_ID`, `GTM_CLIENT_SECRET`, and `GTM_REFRESH_TOKEN`.
-- **Dependencies**: Python 3.x with `google-auth` related libraries.
+- **Dependencies**: Python 3.x. CLI tools (`src/scripts/`) use stdlib only. Web UI backend requires packages listed in `backend/requirements.txt`.
 
 ## Authentication Setup (OAuth 2.0)
 

@@ -10,9 +10,9 @@
 
 ## アーキテクチャ
 
-ポータビリティとセットアップの容易さを確保するため、このプロジェクトは**Python標準ライブラリのみ**を使用して実装されています。外部依存ライブラリ（`requests`や`google-auth`など）は不要です。
-
-- **プログラミング言語**: Python 3.x（標準ライブラリのみ）
+- **Web UI**: FastAPI（バックエンド）+ Next.js 15（フロントエンド）— Docker Composeでデプロイ
+- **GTM CLIツール** (`src/scripts/`): Python標準ライブラリのみ — 外部依存なし
+- **AI生成**: Anthropic Claude API + Playwright（サイト分析）
 
 ## AI自動生成機能
 

@@ -1,12 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException
 from typing import List
-from app.dependencies import get_gtm_client
-from app.schemas.workspace import (
-    WorkspaceConnectRequest, WorkspaceInfo,
-    AccountInfo, ContainerInfo, WorkspaceSummary
-)
+
+from fastapi import APIRouter, Depends, HTTPException
 from gtm_client import GTMClient
 from helpers.gtm_utils import parse_gtm_workspace_url
+
+from app.dependencies import get_gtm_client
+from app.schemas.workspace import AccountInfo, ContainerInfo, WorkspaceConnectRequest, WorkspaceInfo, WorkspaceSummary
 
 router = APIRouter(prefix="/api", tags=["workspace"])
 

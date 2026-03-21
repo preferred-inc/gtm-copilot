@@ -1,16 +1,20 @@
 import logging
 from urllib.parse import urlparse
-from fastapi import APIRouter, Depends, HTTPException
-from typing import Optional
+
+from fastapi import APIRouter, Depends, HTTPException, Request
+from gtm_client import GTMClient
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+
+from app.dependencies import get_gtm_client
 from app.schemas.generate import GenerateRequest, GenerateResponse
 from app.services.crawler import crawl_site
-from app.services.generator import generate_gtm_config
 from app.services.export_service import ExportService
-from app.dependencies import get_gtm_client
-from gtm_client import GTMClient
+from app.services.generator import generate_gtm_config
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+limiter = Limiter(key_func=get_remote_address)
 
 
 def _validate_url(url: str) -> str:
@@ -23,7 +27,8 @@ def _validate_url(url: str) -> str:
 
 
 @router.post("/api/generate")
-async def generate(req: GenerateRequest) -> GenerateResponse:
+@limiter.limit("10/minute")
+async def generate(request: Request, req: GenerateRequest) -> GenerateResponse:
     _validate_url(req.url)
 
     # 1. Crawl site
@@ -56,7 +61,9 @@ async def generate(req: GenerateRequest) -> GenerateResponse:
 
 
 @router.post("/api/generate/with-workspace")
+@limiter.limit("10/minute")
 async def generate_with_workspace(
+    request: Request,
     req: GenerateRequest,
     client: GTMClient = Depends(get_gtm_client),
 ) -> GenerateResponse:
@@ -75,7 +82,7 @@ async def generate_with_workspace(
     if req.workspace_path:
         try:
             existing = ExportService(client).export_workspace(req.workspace_path)
-            logger.info(f"Loaded existing workspace config for dedup")
+            logger.info("Loaded existing workspace config for dedup")
         except Exception as e:
             logger.warning(f"Failed to load existing config: {e}")
 

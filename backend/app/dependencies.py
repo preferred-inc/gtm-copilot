@@ -1,9 +1,11 @@
-from fastapi import Depends, Request, HTTPException
-from app.config import Settings, get_settings
-from app.session import get_session
+from fastapi import Depends, HTTPException, Request
 
 # Import from existing code (path set in __init__.py)
 from gtm_client import GTMClient
+
+from app.config import Settings, get_settings
+from app.session import get_session
+
 
 def get_gtm_client(request: Request, settings: Settings = Depends(get_settings)) -> GTMClient:
     # 1. Try session cookie first

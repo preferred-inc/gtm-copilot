@@ -10,9 +10,9 @@ This project focuses on building programs and prompts to automate Google Tag Man
 
 ## Architecture
 
-To ensure portability and ease of setup, this project is implemented using **only the Python standard library**. No external dependencies (such as `requests` or `google-auth`) are required.
-
-- **Programming Language**: Python 3.x (Standard Library only)
+- **Web UI**: FastAPI (backend) + Next.js 15 (frontend) — Docker Compose for deployment
+- **GTM CLI Tools** (`src/scripts/`): Python standard library only — no external dependencies
+- **AI Generation**: Anthropic Claude API + Playwright for site analysis
 
 ## AI-Powered GTM Generation
 

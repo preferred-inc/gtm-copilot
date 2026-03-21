@@ -1,5 +1,7 @@
 "use client";
 
+import type { SiteAnalysis } from "@/lib/types";
+
 interface AnalysisResultProps {
   analysis: SiteAnalysis;
 }

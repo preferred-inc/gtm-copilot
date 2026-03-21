@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends
+from gtm_client import GTMClient
+
 from app.dependencies import get_gtm_client
 from app.schemas.gtm_items import ExportRequest, ExportResponse
 from app.services.export_service import ExportService
-from gtm_client import GTMClient
 
 router = APIRouter(prefix="/api", tags=["export"])
 

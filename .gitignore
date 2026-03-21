@@ -28,6 +28,10 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
 
 # Virtual Environment
 venv/
@@ -37,6 +41,11 @@ env/
 ENV/
 env.bak/
 venv.bak/
+
+# Node.js / Frontend
+node_modules/
+.next/
+out/
 
 # IDEs
 .vscode/

@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import type { GTMItem } from "@/lib/types";
 import { ItemEditor } from "./ItemEditor";
 
-export function VariableList({ items }: { items: Record<string, unknown>[] }) {
-  const [selected, setSelected] = useState<Record<string, unknown> | null>(null);
+export function VariableList({ items }: { items: GTMItem[] }) {
+  const [selected, setSelected] = useState<GTMItem | null>(null);
 
   return (
     <div>
@@ -23,8 +24,8 @@ export function VariableList({ items }: { items: Record<string, unknown>[] }) {
                 className="border-t border-gray-100 cursor-pointer hover:bg-gray-50"
                 onClick={() => setSelected(item)}
               >
-                <td className="px-4 py-2 font-medium">{(item.name || item.type) as string}</td>
-                <td className="px-4 py-2 text-gray-500">{item.type as string}</td>
+                <td className="px-4 py-2 font-medium">{item.name || item.type}</td>
+                <td className="px-4 py-2 text-gray-500">{item.type}</td>
               </tr>
             ))}
           </tbody>

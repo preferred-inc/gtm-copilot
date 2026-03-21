@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { ImportData, TagExplanation } from "@/lib/types";
 
 interface ConfigPreviewProps {
   config: ImportData;
@@ -43,9 +44,9 @@ export function ConfigPreview({
     );
 
     const filteredConfig: ImportData = {
-      tags: config.tags.filter((t) => selectedNames.has(t.name as string)),
-      triggers: config.triggers.filter((t) => selectedNames.has(t.name as string)),
-      variables: config.variables.filter((v) => selectedNames.has(v.name as string)),
+      tags: config.tags.filter((t) => selectedNames.has(t.name )),
+      triggers: config.triggers.filter((t) => selectedNames.has(t.name )),
+      variables: config.variables.filter((v) => selectedNames.has(v.name )),
       built_in_variables: config.built_in_variables,
     };
 
@@ -53,10 +54,10 @@ export function ConfigPreview({
     // (they might be dependencies)
     const explainedNames = new Set(explanations.map((e) => e.name));
     const unexplainedTriggers = config.triggers.filter(
-      (t) => !explainedNames.has(t.name as string)
+      (t) => !explainedNames.has(t.name )
     );
     const unexplainedVariables = config.variables.filter(
-      (v) => !explainedNames.has(v.name as string)
+      (v) => !explainedNames.has(v.name )
     );
     filteredConfig.triggers = [
       ...filteredConfig.triggers,

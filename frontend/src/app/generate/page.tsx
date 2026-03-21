@@ -3,7 +3,12 @@
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/auth";
-import { api } from "@/lib/api";
+import { api, APIError } from "@/lib/api";
+import type {
+  GenerateResponse,
+  ImportData,
+  ImportExecuteResponse,
+} from "@/lib/types";
 import { AnalysisResult } from "@/components/generate/AnalysisResult";
 import { ConfigPreview } from "@/components/generate/ConfigPreview";
 
@@ -67,6 +72,8 @@ function GeneratePageInner() {
     } catch (e) {
       if (e instanceof DOMException && e.name === "TimeoutError") {
         setError("タイムアウトしました。しばらく経ってから再度お試しください。");
+      } else if (e instanceof APIError && e.status === 429) {
+        setError("リクエスト数が上限を超えました。しばらく待ってから再試行してください。");
       } else {
         setError(e instanceof Error ? e.message : "生成に失敗しました");
       }

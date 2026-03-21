@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import type { ExportResponse } from "@/lib/types";
 
 export default function WorkspaceOverview() {
   const params = useParams();

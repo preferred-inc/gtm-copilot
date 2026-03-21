@@ -1,11 +1,14 @@
 from fastapi import APIRouter, Depends
+from gtm_client import GTMClient
+
 from app.dependencies import get_gtm_client
 from app.schemas.sync import (
-    ImportPreviewRequest, ImportPreviewResponse,
-    ImportExecuteRequest, ImportExecuteResponse,
+    ImportExecuteRequest,
+    ImportExecuteResponse,
+    ImportPreviewRequest,
+    ImportPreviewResponse,
 )
 from app.services.import_service import ImportService
-from gtm_client import GTMClient
 
 router = APIRouter(prefix="/api", tags=["import"])
 

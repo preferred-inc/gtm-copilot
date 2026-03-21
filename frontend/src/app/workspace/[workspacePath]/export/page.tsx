@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { api } from "@/lib/api";
+import type { ExportResponse } from "@/lib/types";
 import { TagList } from "@/components/gtm/TagList";
 import { TriggerList } from "@/components/gtm/TriggerList";
 import { VariableList } from "@/components/gtm/VariableList";

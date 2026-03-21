@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { api } from "@/lib/api";
+import type { ImportData, ImportPreviewResponse, ImportExecuteResponse } from "@/lib/types";
 import { SyncStatus } from "@/components/sync/SyncStatus";
 
 export default function ImportPage() {

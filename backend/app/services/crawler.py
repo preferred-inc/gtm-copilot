@@ -1,11 +1,15 @@
-import re
-import json
 from typing import List, Optional
-from urllib.parse import urljoin, urlparse
-from playwright.async_api import async_playwright, Page, Browser
+from urllib.parse import urlparse
+
+from playwright.async_api import Browser, Page, async_playwright
+
 from app.schemas.analysis import (
-    SiteAnalysis, ExistingTag, FormInfo, CTAInfo,
-    EcommerceInfo, PageInfo,
+    CTAInfo,
+    EcommerceInfo,
+    ExistingTag,
+    FormInfo,
+    PageInfo,
+    SiteAnalysis,
 )
 
 PAGE_TIMEOUT = 30_000  # 30s

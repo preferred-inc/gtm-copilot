@@ -1,9 +1,9 @@
+from authentication import exchange_code_for_tokens, get_authorization_url
 from fastapi import APIRouter, Depends, Request
-from fastapi.responses import RedirectResponse, JSONResponse
-from app.config import Settings, get_settings
-from app.session import create_session, get_session, delete_session
+from fastapi.responses import JSONResponse, RedirectResponse
 
-from authentication import get_authorization_url, exchange_code_for_tokens
+from app.config import Settings, get_settings
+from app.session import create_session, delete_session, get_session
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 

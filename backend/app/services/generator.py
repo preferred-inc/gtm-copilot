@@ -1,13 +1,17 @@
 import json
 import logging
 import os
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
+
 import anthropic
+
 from app.schemas.analysis import SiteAnalysis
-from app.schemas.sync import ImportData
 from app.schemas.generate import GenerateResult, TagExplanation
+from app.schemas.sync import ImportData
 from app.services.templates.prompts import (
-    SYSTEM_PROMPT, USER_PROMPT_TEMPLATE, SITE_TYPE_GUIDELINES,
+    SITE_TYPE_GUIDELINES,
+    SYSTEM_PROMPT,
+    USER_PROMPT_TEMPLATE,
     get_detection_guidelines,
 )
 

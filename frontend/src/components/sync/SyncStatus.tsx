@@ -1,5 +1,7 @@
 "use client";
 
+import type { ImportPreviewResponse } from "@/lib/types";
+
 export function SyncStatus({ preview }: { preview: ImportPreviewResponse }) {
   return (
     <div>

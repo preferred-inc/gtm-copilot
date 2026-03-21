@@ -1,5 +1,7 @@
+from typing import Any, Dict, List, Optional
+
 from pydantic import BaseModel
-from typing import List, Dict, Any, Optional
+
 
 class ImportData(BaseModel):
     tags: List[Dict[str, Any]] = []

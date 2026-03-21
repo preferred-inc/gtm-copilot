@@ -1,12 +1,16 @@
-from typing import Dict, Any, List, Optional
-from gtm_client import GTMClient
+import os
 
 # Import from existing code
-import sys, os
+import sys
+from typing import Any, Dict, List
+
+from gtm_client import GTMClient
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'src', 'scripts', 'bin')))
 
 # We need clean_item from import.py - import it carefully
 import importlib
+
 _import_module = importlib.import_module("import")
 clean_item = _import_module.clean_item
 GTMDependencyResolver = _import_module.GTMDependencyResolver
