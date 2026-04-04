@@ -20,6 +20,14 @@ class Settings(BaseSettings):
     def is_production(self) -> bool:
         return self.ENV == "production"
 
+    def validate_required(self) -> list[str]:
+        """Return list of missing required settings for production."""
+        missing = []
+        for key in ("GTM_CLIENT_ID", "GTM_CLIENT_SECRET", "GTM_REFRESH_TOKEN", "ANTHROPIC_API_KEY"):
+            if not getattr(self, key):
+                missing.append(key)
+        return missing
+
     model_config = {
         "env_file": os.path.join(os.path.dirname(__file__), '..', '..', 'src', '.env'),
         "env_file_encoding": "utf-8",

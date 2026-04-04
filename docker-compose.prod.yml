@@ -11,6 +11,9 @@ services:
       - ENV=production
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
       - LOG_LEVEL=WARNING
+      - OAUTH_REDIRECT_URI=${OAUTH_REDIRECT_URI:-}
+    volumes:
+      - gtm-data:/app/backend/app/data
     restart: unless-stopped
 
   frontend:
@@ -26,3 +29,6 @@ services:
       backend:
         condition: service_healthy
     restart: unless-stopped
+
+volumes:
+  gtm-data:

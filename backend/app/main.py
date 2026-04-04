@@ -15,6 +15,17 @@ from app.routers import auth, export, generate, history, import_, template, work
 
 settings = get_settings()
 
+# Warn about missing required settings at startup
+_missing = settings.validate_required()
+if _missing:
+    import sys
+    msg = f"Missing required environment variables: {', '.join(_missing)}"
+    if settings.is_production:
+        print(f"FATAL: {msg}", file=sys.stderr)
+        sys.exit(1)
+    else:
+        logging.getLogger(__name__).warning(msg)
+
 # Configure logging
 logging.basicConfig(
     level=getattr(logging, settings.LOG_LEVEL, logging.INFO),
