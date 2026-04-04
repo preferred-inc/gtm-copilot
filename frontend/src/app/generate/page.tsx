@@ -11,6 +11,7 @@ import type {
 } from "@/lib/types";
 import { AnalysisResult } from "@/components/generate/AnalysisResult";
 import { ConfigPreview } from "@/components/generate/ConfigPreview";
+import { SaveTemplateModal } from "@/components/templates/SaveTemplateModal";
 
 export default function GeneratePage() {
   return (
@@ -35,6 +36,7 @@ function GeneratePageInner() {
   const [applyResult, setApplyResult] = useState<ImportExecuteResponse | null>(
     null
   );
+  const [showSaveTemplate, setShowSaveTemplate] = useState(false);
 
   const handleGenerate = async () => {
     const trimmed = url.trim();
@@ -207,6 +209,30 @@ function GeneratePageInner() {
             applying={applying}
           />
         </div>
+      )}
+
+      {/* Save as Template */}
+      {result && !loading && (
+        <div className="mt-4">
+          <button
+            onClick={() => setShowSaveTemplate(true)}
+            className="px-4 py-2 text-sm border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 font-medium"
+          >
+            テンプレートとして保存
+          </button>
+        </div>
+      )}
+
+      {showSaveTemplate && result && (
+        <SaveTemplateModal
+          config={result.config}
+          explanations={result.explanations}
+          onClose={() => setShowSaveTemplate(false)}
+          onSaved={() => {
+            setShowSaveTemplate(false);
+            alert("テンプレートを保存しました");
+          }}
+        />
       )}
 
       {/* Apply Result */}

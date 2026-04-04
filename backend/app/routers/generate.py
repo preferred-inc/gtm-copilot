@@ -8,6 +8,7 @@ from slowapi.util import get_remote_address
 
 from app.dependencies import get_gtm_client
 from app.schemas.generate import GenerateRequest, GenerateResponse
+from app.services import history_service
 from app.services.crawler import crawl_site
 from app.services.export_service import ExportService
 from app.services.generator import generate_gtm_config
@@ -53,6 +54,19 @@ async def generate(request: Request, req: GenerateRequest) -> GenerateResponse:
         raise HTTPException(status_code=500, detail=f"GTM設定の生成に失敗しました: {e}")
 
     logger.info(f"Generation complete: {len(result.config.tags)} tags, {len(result.config.triggers)} triggers, {len(result.config.variables)} variables")
+
+    # 4. Save to history
+    try:
+        history_service.save_generation(
+            url=req.url,
+            site_type=analysis.site_type,
+            analysis=analysis.model_dump(),
+            config=result.config.model_dump(),
+            explanations=[e.model_dump() for e in result.explanations],
+        )
+    except Exception as e:
+        logger.warning(f"Failed to save history: {e}")
+
     return GenerateResponse(
         analysis=analysis,
         config=result.config,
@@ -95,6 +109,19 @@ async def generate_with_workspace(
         raise HTTPException(status_code=500, detail=f"GTM設定の生成に失敗しました: {e}")
 
     logger.info(f"Generation complete: {len(result.config.tags)} tags, {len(result.config.triggers)} triggers, {len(result.config.variables)} variables")
+
+    # 4. Save to history
+    try:
+        history_service.save_generation(
+            url=req.url,
+            site_type=analysis.site_type,
+            analysis=analysis.model_dump(),
+            config=result.config.model_dump(),
+            explanations=[e.model_dump() for e in result.explanations],
+        )
+    except Exception as e:
+        logger.warning(f"Failed to save history: {e}")
+
     return GenerateResponse(
         analysis=analysis,
         config=result.config,

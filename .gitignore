@@ -46,6 +46,10 @@ venv.bak/
 node_modules/
 .next/
 out/
+*.tsbuildinfo
+
+# App data (generated at runtime)
+backend/app/data/
 
 # IDEs
 .vscode/

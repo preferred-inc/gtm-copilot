@@ -20,6 +20,8 @@ export default function RootLayout({
           <nav className="flex gap-4 text-sm">
             <a href="/" className="text-gray-600 hover:text-gray-900">Workspace</a>
             <a href="/generate" className="text-gray-600 hover:text-gray-900">AI生成</a>
+            <a href="/templates" className="text-gray-600 hover:text-gray-900">テンプレート</a>
+            <a href="/history" className="text-gray-600 hover:text-gray-900">履歴</a>
           </nav>
         </header>
         <AuthProvider>

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from gtm_client import GTMClient
 
 from app.dependencies import get_gtm_client
@@ -9,6 +9,9 @@ router = APIRouter(prefix="/api", tags=["export"])
 
 @router.post("/export", response_model=ExportResponse)
 def export_workspace(req: ExportRequest, client: GTMClient = Depends(get_gtm_client)):
-    service = ExportService(client)
-    result = service.export_workspace(req.workspace_path)
-    return ExportResponse(**result)
+    try:
+        service = ExportService(client)
+        result = service.export_workspace(req.workspace_path)
+        return ExportResponse(**result)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

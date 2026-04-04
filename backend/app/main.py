@@ -11,7 +11,7 @@ from slowapi.util import get_remote_address
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.config import get_settings
-from app.routers import auth, export, generate, import_, workspace
+from app.routers import auth, export, generate, history, import_, template, workspace
 
 settings = get_settings()
 
@@ -96,6 +96,8 @@ app.include_router(workspace.router)
 app.include_router(export.router)
 app.include_router(import_.router)
 app.include_router(generate.router)
+app.include_router(template.router)
+app.include_router(history.router)
 
 
 @app.get("/api/health")
