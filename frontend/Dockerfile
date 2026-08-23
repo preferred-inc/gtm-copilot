@@ -6,7 +6,9 @@ COPY package.json package-lock.json* ./
 RUN npm ci
 
 COPY . .
-RUN npm run build
+# public/ is optional in Next.js and this repo has none. Create it so the
+# runner stage's COPY always has a source to read.
+RUN mkdir -p public && npm run build
 
 FROM node:20-slim AS runner
 
