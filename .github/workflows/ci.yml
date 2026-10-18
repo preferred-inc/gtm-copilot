@@ -8,7 +8,7 @@ on:
 
 jobs:
   backend-test:
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-2
     defaults:
       run:
         working-directory: backend
@@ -38,7 +38,7 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}/backend:${{ github.workspace }}/src/scripts
 
   frontend-build:
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-2
     defaults:
       run:
         working-directory: frontend
@@ -66,7 +66,7 @@ jobs:
           NEXT_PUBLIC_API_URL: http://localhost:8000
 
   docker-build:
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-2
     steps:
       - uses: actions/checkout@v4
 
